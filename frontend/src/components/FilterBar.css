@@ -1,0 +1,42 @@
+body, html {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(40,33,27,0.04);
+  padding: 0.7rem 1.2rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+.filter-bar select, .filter-bar input[type="range"] {
+  font-family: inherit;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  padding: 0.3rem 0.7rem;
+  outline: none;
+  margin-right: 0.5rem;
+}
+.filter-bar-range {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.filter-bar label {
+  font-weight: 500;
+  color: #231f20;
+}
+@media (max-width: 700px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+    padding: 0.7rem 0.5rem;
+  }
+} 

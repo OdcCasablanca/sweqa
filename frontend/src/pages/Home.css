@@ -1,0 +1,706 @@
+.home-container {
+  background-color: #f8f8f8; /* Light off-white background */
+  /* Add a subtle pattern if needed later */
+  padding-top: 60px; /* Add padding to account for fixed header */
+}
+
+/* Add styles for hero section and other elements as needed */
+
+/* Styles for the new Store Admin Preview section */
+.store-admin-preview {
+  margin-top: 4rem; /* Equivalent to mt: 8 in sx */
+  padding: 2rem; /* Equivalent to p: 4 in sx */
+  border-radius: 0.5rem; /* Equivalent to borderRadius: 2 in sx */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Equivalent to boxShadow */
+  background-color: #FFFFFF; /* White background */
+  display: flex; /* Use flexbox for layout */
+  gap: 2rem; /* Equivalent to gap: 4 in sx */
+}
+
+.store-admin-preview .sidebar-placeholder {
+  width: 200px; /* Equivalent to width in sx */
+  flex-shrink: 0;
+}
+
+.store-admin-preview .sidebar-placeholder typography {
+  font-size: 1.1rem; /* Adjust font size for menu items */
+  margin-bottom: 0.5rem; /* Spacing between menu items */
+}
+
+.store-admin-preview .menu-item {
+  display: flex;
+  align-items: center;
+  font-size: 1rem; /* Adjusted font size */
+  padding: 0.5rem 1rem; /* Padding for clickable area */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.store-admin-preview .menu-item:hover {
+  background-color: #f0f0f0; /* Light hover effect */
+}
+
+.store-admin-preview .menu-item.active {
+  background-color: #ffeacc; /* Light orange background for active item */
+  color: #FF6B00; /* Orange text color for active item */
+  font-weight: 600;
+}
+
+.store-admin-preview .menu-item svg {
+  font-size: 1.2rem; /* Size of icons */
+  margin-right: 0.5rem; /* Space between icon and text */
+}
+
+/* Styles for the Boost ta visibilité section */
+.store-admin-preview .boost-section {
+  background-color: #ffeacc; /* Light orange background */
+  padding: 1rem; /* Equivalent to p: 2 in sx */
+  border-radius: 0.5rem; /* Equivalent to borderRadius: 2 in sx */
+  text-align: center;
+}
+
+.store-admin-preview .boost-section typography:first-of-type {
+  font-weight: 600; /* Equivalent to fontWeight: 600 */
+  margin-bottom: 0.5rem; /* Equivalent to mb: 1 */
+}
+
+.store-admin-preview .boost-section typography:nth-of-type(2) {
+  margin-bottom: 1rem; /* Equivalent to mb: 2 */
+}
+
+.store-admin-preview .product-card-placeholder {
+  padding: 0; /* Remove padding from the container */
+  text-align: left; /* Align text to the left */
+  background-color: #FFFFFF; /* White background for the card */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Hide overflowing parts like sharp corners on image */
+}
+
+.store-admin-preview .product-image-placeholder {
+  width: 100%;
+  height: 140px; /* Adjusted height for the image area */
+  background-color: #f0f2f5; /* Light gray background for image placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem; /* Size for the placeholder icon */
+  color: #ccc; /* Color for the placeholder icon */
+  /* Add a placeholder icon if needed in Home.js */
+}
+
+.store-admin-preview .product-card-content {
+  padding: 1rem; /* Padding for the text content area */
+}
+
+.store-admin-preview .product-name-placeholder {
+  margin-top: 0; /* Remove top margin */
+  font-size: 1rem; /* Adjust font size */
+  font-weight: 500;
+  color: #333; /* Dark text color for name */
+}
+
+.store-admin-preview .product-price-placeholder {
+  font-size: 1rem; /* Adjust font size */
+  color: #FF6B00; /* Orange color for price */
+  font-weight: 600; /* Bold font for price */
+  margin-top: 0.25rem; /* Spacing above price */
+}
+
+.store-admin-preview .add-product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px; /* Ensure similar height to product cards */
+  padding: 1rem; /* Padding */
+  border: 2px dashed #FF6B00; /* Orange dashed border */
+  border-radius: 0.5rem;
+  background-color: #fff3e0; /* Light orange background */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.store-admin-preview .add-product-card:hover {
+  background-color: #ffeacc; /* Slightly darker orange on hover */
+}
+
+.store-admin-preview .add-product-icon {
+  font-size: 2.5rem; /* Large icon size */
+  color: #FF6B00; /* Orange color */
+  margin-bottom: 0.5rem;
+}
+
+.store-admin-preview .add-product-card typography {
+  color: #FF6B00; /* Orange text color */
+  font-weight: 500;
+}
+
+/* Styles for the AI Feature Banner */
+.store-admin-preview .ai-feature-banner {
+  margin-top: 2rem; /* Equivalent to mt: 4 in sx */
+  padding: 1rem; /* Equivalent to p: 2 in sx */
+  display: flex;
+  align-items: center;
+  background-color: #e3f2fd; /* Light blue background */
+  border-radius: 0.5rem; /* Equivalent to borderRadius: 2 in sx */
+}
+
+.store-admin-preview .ai-feature-banner svg {
+  color: #1e88e5; /* Blue icon color */
+  margin-right: 1rem; /* Equivalent to mr: 2 */
+  font-size: 1.8rem; /* Adjust icon size */
+}
+
+.store-admin-preview .ai-feature-banner .MuiBox-root {
+  flex-grow: 1; /* Equivalent to flexGrow: 1 */
+}
+
+.store-admin-preview .ai-feature-banner typography:first-of-type {
+  font-weight: 600; /* Equivalent to fontWeight: 600 */
+}
+
+.store-admin-preview .ai-feature-banner .MuiButton-contained {
+  background-color: #2196f3; /* Blue button color */
+  /* Add hover style if needed */
+}
+
+.store-admin-preview .products-list-placeholder {
+  flex-grow: 1;
+}
+
+.store-admin-preview .products-scroll-container {
+  max-height: 400px; /* Set a max height to enable scrolling - adjust as needed */
+  overflow-y: auto; /* Add vertical scrollbar when content exceeds height */
+  padding-right: 1rem; /* Add some padding to the right to ensure scrollbar doesn't overlap content */
+}
+
+/* Styles for the new AI Product Upload section */
+.ai-upload-section {
+  margin-top: 4rem; /* Equivalent to mt: 8 in sx */
+  padding: 2rem; /* Equivalent to p: 4 in sx */
+  border-radius: 0.5rem; /* Equivalent to borderRadius: 2 in sx */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Subtle shadow */
+  background-color: #FFFFFF; /* White background */
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Equivalent to gap: 4 in sx */
+}
+
+.ai-upload-section .text-content {
+  flex: 1;
+}
+
+.ai-upload-section .text-content h2 {
+  color: #000; /* Black text color */
+  font-weight: 700; /* Bold font weight */
+  margin-bottom: 0.5rem; /* Equivalent to gutterBottom */
+}
+
+.ai-upload-section .text-content h6 {
+  color: #555; /* Dark gray text color */
+  margin-bottom: 1.5rem; /* Equivalent to mb: 3 */
+}
+
+.ai-upload-section .image-placeholder {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ai-upload-section .image-placeholder .placeholder-box {
+  width: 100%;
+  height: 300px; /* Adjusted height */
+  background-color: #ccc; /* Gray placeholder background */
+  border-radius: 0.5rem; /* Rounded corners */
+  /* Add background image or gradient here if needed */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 900px) { /* Equivalent to md breakpoint */
+  .ai-upload-section {
+    flex-direction: column; /* Stack elements vertically */
+  }
+
+  .ai-upload-section .image-placeholder {
+    margin-top: 2rem; /* Add space between text and image when stacked */
+  }
+}
+
+/* Styles for the new Sweqa Discover Promotion section */
+.discover-section {
+  margin-top: 4rem; /* Equivalent to mt: 8 in sx */
+  padding: 2rem; /* Equivalent to p: 4 in sx */
+  border-radius: 0.5rem; /* Equivalent to borderRadius: 2 in sx */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Subtle shadow */
+  background-color: #FFFFFF; /* White background */
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Equivalent to gap: 4 in sx */
+}
+
+.discover-section .text-content {
+  flex: 1;
+}
+
+.discover-section .text-content h2 {
+  color: #000; /* Black text color */
+  font-weight: 700; /* Bold font weight */
+  margin-bottom: 0.5rem; /* Equivalent to gutterBottom */
+}
+
+.discover-section .text-content h6 {
+  color: #555; /* Dark gray text color */
+}
+
+.discover-section .image-placeholder {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.discover-section .image-placeholder .placeholder-box {
+  width: 250px; /* Equivalent to width in sx */
+  height: 400px; /* Equivalent to height in sx */
+  background-color: #ccc; /* Gray placeholder background */
+  border-radius: 0.5rem; /* Equivalent to borderRadius: 2 in sx */
+  /* Add background image here */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 900px) { /* Equivalent to md breakpoint */
+  .discover-section {
+    flex-direction: column; /* Stack elements vertically */
+  }
+
+  .discover-section .image-placeholder {
+    margin-top: 2rem; /* Add space between text and image when stacked */
+  }
+}
+
+/* Styles for the new How it Works section */
+.how-it-works-text {
+  margin-bottom: 12rem; /* Adjusted space below the text block to increase separation from cards */
+}
+
+.how-it-works-text h6 {
+  margin-bottom: 6rem; /* Increased margin below the subtitle to add space between text and cards */
+}
+
+.how-it-works-step {
+  text-align: center;
+  padding: 2rem;
+  padding-top: 4rem; /* Adjusted padding top to accommodate the number circle above */
+  border: 1px solid #eee; /* Light gray border for inactive */
+  border-radius: 0.5rem; /* Rounded corners */
+  background-color: #FFFFFF; /* White background */
+  height: 100%; /* Ensure equal height for all step boxes */
+  position: relative; /* Needed for positioning number circle, large number, and connecting line */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.how-it-works-step .step-large-number {
+  position: absolute;
+  bottom: 1rem; /* Position from the bottom */
+  right: 1rem; /* Position from the right */
+  font-size: 6rem; /* Large font size */
+  color: #ffeacc; /* Light orange color */
+  font-weight: 700;
+  z-index: 0; /* Ensure it's behind the text content */
+  opacity: 0.8; /* Make it slightly transparent */
+}
+
+/* Connecting line between step cards */
+.how-it-works-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 100%; /* Start exactly at the right edge of the card */
+  /* Position vertically centered with the number circle */
+  top: -40px; /* Should be vertically centered with the step-icon-container */
+  width: 2rem; /* Length of the connecting line (should match the grid gap) */
+  height: 2px; /* Thickness of the line */
+  background-color: #FF6B00; /* Orange color */
+  transform: translateY(-50%); /* Vertically center the line on its calculated top position */
+  z-index: 0;
+}
+
+.how-it-works-step.active-step {
+  border-color: #FF6B00; /* Orange border for active step */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Subtle shadow for active step */
+}
+
+.how-it-works-step .step-icon-container {
+  width: 60px; /* Size of the circle */
+  height: 60px;
+  position: absolute; /* Position at the top of the card */
+  top: -70px; /* Position so bottom of circle is slightly above card top */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust for horizontal centering */
+  border: 2px solid #FF6B00; /* Orange border */
+  border-radius: 50%; /* Make it a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; /* White background */
+  z-index: 1; /* Ensure it's above the card and large number */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.how-it-works-step .step-icon-container .step-number {
+  font-size: 1.8rem; /* Size of the number */
+  color: #FF6B00; /* Orange color */
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+/* Active step icon container */
+.how-it-works-step.active-step .step-icon-container {
+  background-color: #FF6B00;
+  border-color: #FF6B00;
+}
+
+.how-it-works-step.active-step .step-icon-container .step-number {
+  color: #FFFFFF;
+}
+
+/* Completed step icon container */
+.how-it-works-step.completed-step .step-icon-container {
+  /* No special background/border/text color needed for completed steps based on image */
+}
+
+.how-it-works-step .checkmark-icon {
+  position: absolute;
+  /* Position relative to the step card */
+  top: -80px; /* Adjust vertical position above the circle */
+  right: calc(50% - 40px); /* Position to the right of the centered number circle */
+  color: #00cc00;
+  font-size: 1.5rem;
+  background-color: #fff;
+  border-radius: 50%;
+  z-index: 2; /* Ensure checkmark is above the number circle */
+  /* transition: opacity 0.3s ease; Add transition if animating appearance */
+}
+
+/* Hide checkmark for non-completed steps (handled by conditional rendering in JS) */
+/* .how-it-works-step:not(.completed-step) .checkmark-icon { display: none; } */
+
+.how-it-works-step h6 {
+  margin-top: 1rem;
+}
+
+.how-it-works-step p {
+  color: #555;
+}
+
+/* General background */
+.home-main-bg {
+  background: #fffcfa;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* HERO SECTION */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0 32px 0;
+  text-align: center;
+}
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #28211b;
+  margin-bottom: 16px;
+}
+.hero-content p {
+  font-size: 1.3rem;
+  color: #28211b;
+  margin-bottom: 32px;
+}
+.cta-btn {
+  background: #ff7900;
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  padding: 18px 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255,121,0,0.08);
+  transition: background 0.2s;
+}
+.cta-btn:hover {
+  background: #ff8c1a;
+}
+.hero-mockup {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+.hero-mockup img {
+  max-width: 700px;
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(40,33,27,0.08);
+}
+
+/* FEATURE SECTIONS (AI & DISCOVER) */
+.feature-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(40,33,27,0.07);
+  margin: 48px auto;
+  max-width: 1100px;
+  padding: 48px 32px;
+  gap: 48px;
+}
+.feature-section .feature-text {
+  flex: 1;
+}
+.feature-section .feature-text h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #28211b;
+  margin-bottom: 16px;
+}
+.feature-section .feature-text p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 32px;
+}
+.feature-section .feature-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-section .feature-image img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(40,33,27,0.07);
+}
+.feature-section.ai-feature .feature-image img {
+  max-width: 420px;
+}
+.feature-section.discover-feature .feature-image img {
+  max-width: 260px;
+}
+.feature-section .cta-btn.secondary {
+  background: #fff;
+  color: #ff7900;
+  border: 2px solid #ff7900;
+  margin-top: 8px;
+}
+.feature-section .cta-btn.secondary:hover {
+  background: #ff7900;
+  color: #fff;
+}
+
+/* HOW IT WORKS SECTION */
+.how-it-works {
+  text-align: center;
+  margin: 80px auto 0 auto;
+  max-width: 1100px;
+  padding: 0 16px 64px 16px;
+}
+.how-it-works h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #28211b;
+  margin-bottom: 12px;
+}
+.how-it-works p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 48px;
+}
+.steps-row {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.step-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(40,33,27,0.07);
+  padding: 40px 28px 32px 28px;
+  width: 300px;
+  position: relative;
+  text-align: center;
+  border: 2px solid #fff;
+  transition: border 0.2s;
+}
+.step-card.active {
+  border: 2px solid #ff7900;
+  box-shadow: 0 4px 24px rgba(255,121,0,0.10);
+}
+.step-number {
+  background: #ff7900;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgba(255,121,0,0.10);
+  border: 3px solid #fff;
+}
+.step-card h3 {
+  margin-top: 32px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #28211b;
+}
+.step-card p {
+  color: #555;
+  font-size: 1rem;
+  margin-top: 16px;
+}
+
+/* TESTIMONIALS SECTION */
+.testimonials-section {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(40,33,27,0.07);
+  margin: 64px auto 0 auto;
+  max-width: 1100px;
+  padding: 48px 32px 32px 32px;
+  text-align: center;
+}
+.testimonials-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #28211b;
+  margin-bottom: 8px;
+}
+.testimonials-section .divider {
+  border: none;
+  border-top: 2px solid #eee;
+  margin: 0 0 32px 0;
+}
+.testimonials-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.testimonial {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
+}
+.testimonial img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+}
+.testimonial-info {
+  margin-bottom: 4px;
+}
+.testimonial-info .name {
+  font-weight: 700;
+  color: #28211b;
+  font-size: 1rem;
+  display: block;
+}
+.testimonial-info .role {
+  color: #a67c52;
+  font-size: 0.95rem;
+  display: block;
+}
+.stars {
+  color: #ff7900;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #eee;
+  display: inline-block;
+}
+.dot.active {
+  background: #ff7900;
+}
+
+/* FINAL CTA SECTION */
+.final-cta-section {
+  text-align: center;
+  margin: 80px auto 0 auto;
+  padding: 64px 0 64px 0;
+}
+.final-cta-section h2 {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #28211b;
+  margin-bottom: 32px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .feature-section, .testimonials-section {
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 12px;
+  }
+  .steps-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .step-card {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .testimonials-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+@media (max-width: 700px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .feature-section .feature-text h2,
+  .how-it-works h2 {
+    font-size: 1.3rem;
+  }
+  .final-cta-section h2 {
+    font-size: 1.3rem;
+  }
+  .hero-mockup img {
+    max-width: 100%;
+  }
+} 

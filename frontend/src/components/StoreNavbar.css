@@ -1,0 +1,157 @@
+.store-navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 2rem;
+  width: 100%;
+  z-index: 999;
+}
+
+.store-navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.store-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  gap: 1rem;
+}
+
+.store-nav-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.store-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.store-search {
+  flex: 1;
+  max-width: 400px;
+}
+
+.store-search form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.store-search input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.store-search input:focus {
+  outline: none;
+  border-color: #FF6B00;
+}
+
+.store-search button {
+  padding: 0.5rem 1rem;
+  background-color: #FF6B00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.store-search button:hover {
+  background-color: #FF8533;
+}
+
+.store-nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.store-nav-item {
+  padding: 0.5rem 0;
+}
+
+.store-nav-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.store-nav-link:hover {
+  color: #FF6B00;
+}
+
+.store-nav-icons {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.store-icon-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.store-icon-link:hover {
+  color: #FF6B00;
+}
+
+.store-nav-icon {
+  font-size: 1.25rem;
+}
+
+.store-icon-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .store-navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .store-name {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .store-nav-menu {
+    display: none;
+  }
+
+  .store-icon-text {
+    display: none;
+  }
+
+  .store-nav-icons {
+    gap: 1rem;
+  }
+
+  .store-search {
+    max-width: none;
+  }
+} 

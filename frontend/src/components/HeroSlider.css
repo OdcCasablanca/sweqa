@@ -1,0 +1,131 @@
+/* HeroSlider.css */
+.hero-slider-root {
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero-slide {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-direction: row;
+  padding: 0 5vw;
+  box-sizing: border-box;
+  transition: background 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.hero-slide-content {
+  z-index: 2;
+  max-width: 600px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.10);
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin: 0 0 1.5rem 0;
+  color: #f8f8f8;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.08);
+}
+
+.hero-cta-btn {
+  display: inline-block;
+  background: #231f20;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 0.85rem 2.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 16px rgba(40,33,27,0.10);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-top: 0.5rem;
+}
+.hero-cta-btn:hover {
+  background: #fff;
+  color: #231f20;
+  box-shadow: 0 4px 24px rgba(40,33,27,0.18);
+}
+
+.hero-slide-img {
+  width: 480px;
+  max-width: 40vw;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px rgba(40,33,27,0.10);
+  margin-left: 4vw;
+  z-index: 1;
+}
+
+/* Dots styling for react-slick */
+.hero-slider-root .slick-dots {
+  bottom: 32px;
+}
+.hero-slider-root .slick-dots li button:before {
+  font-size: 14px;
+  color: #fff;
+  opacity: 0.7;
+}
+.hero-slider-root .slick-dots li.slick-active button:before {
+  color: #231f20;
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-slide {
+    flex-direction: column;
+    padding: 0 2vw;
+    min-height: 80vh;
+  }
+  .hero-slide-img {
+    width: 80vw;
+    max-width: 90vw;
+    max-height: 220px;
+    margin: 2rem 0 0 0;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-slide {
+    min-height: 70vh;
+    padding: 0 1vw;
+  }
+  .hero-title {
+    font-size: 1.3rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .hero-slide-img {
+    width: 95vw;
+    max-width: 98vw;
+    max-height: 140px;
+    margin: 1.2rem 0 0 0;
+  }
+} 
