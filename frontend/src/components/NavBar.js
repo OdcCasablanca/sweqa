@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 import './Navbar.css';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function NavBar() {
   const { user, logout } = useAuth();
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,10 +19,13 @@ export default function NavBar() {
         </Link>
       </div>
       <div className="navbar-actions">
+        <Box sx={{ mr: 2 }}>
+          <LanguageSwitcher />
+        </Box>
         {!user ? (
-          <Link to="/login" className="navbar-auth-btn">Se connecter</Link>
+          <Link to="/login" className="navbar-auth-btn">{t('login')}</Link>
         ) : (
-          <button className="navbar-auth-btn" onClick={logout}>Déconnexion</button>
+          <button className="navbar-auth-btn" onClick={logout}>{t('logout')}</button>
         )}
       </div>
     </nav>

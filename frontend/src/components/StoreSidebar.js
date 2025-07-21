@@ -36,7 +36,7 @@ import {
     KeyboardArrowDown as ArrowDownIcon
 } from '@mui/icons-material';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
 const DRAWER_WIDTH = 280;
 
@@ -57,7 +57,7 @@ const StoreSidebar = ({ storeId, storeName, storeLogo }) => {
 
     const fetchStores = async () => {
         try {
-            const response = await axios.get('http://localhost:5005/api/stores/my-stores');
+            const response = await axiosInstance.get('/stores/my-stores');
             setStores(response.data);
         } catch (error) {
             console.error('Failed to fetch stores:', error);

@@ -20,11 +20,28 @@ body, html {
   z-index: 100;
 }
 
+
+
 .navbar-actions {
   margin-left: auto;
   display: flex;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
+
+/* Language switcher styles */
+.navbar-actions .MuiBox-root {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-actions .MuiButton-root {
+  font-size: 0.9rem;
+  min-width: auto;
+}
+
+
 
 .navbar-auth-btn {
   background: none;

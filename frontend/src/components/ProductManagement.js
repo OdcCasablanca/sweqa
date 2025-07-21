@@ -22,7 +22,7 @@ import {
     LocalOffer
 } from '@mui/icons-material';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
 const ProductManagement = () => {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ const ProductManagement = () => {
     const fetchProducts = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get(`http://localhost:5005/api/products/store/${storeId}`, {
+            const response = await axiosInstance.get(`/products/store/${storeId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             setProducts(response.data);
@@ -52,7 +52,7 @@ const ProductManagement = () => {
     const handleDeleteClick = async (productId) => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5005/api/products/${productId}`, {
+            await axiosInstance.delete(`/products/${productId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             setProducts(products.filter(p => p._id !== productId));

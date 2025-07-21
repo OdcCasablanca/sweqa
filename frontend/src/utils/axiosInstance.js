@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5005/api',
+  baseURL: 'https://swe9a.com/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'

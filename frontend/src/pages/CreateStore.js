@@ -21,6 +21,7 @@ import {
   Close as CloseIcon,
 } from '@mui/icons-material';
 import axiosInstance from '../utils/axiosInstance';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const VisuallyHiddenInput = (props) => (
   <input
@@ -40,6 +41,7 @@ const VisuallyHiddenInput = (props) => (
 );
 
 const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -139,7 +141,7 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        Create Your Store
+        {t('createStoreTitle')}
         <IconButton onClick={onClose} sx={{ color: '#888' }}>
           <CloseIcon />
         </IconButton>
@@ -148,7 +150,7 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <Grid container spacing={3}>
             <Grid item xs={12} sx={{ textAlign: 'center' }}>
-              <Tooltip title="Upload Store Logo" arrow>
+              <Tooltip title={t('uploadLogo')} arrow>
                 <IconButton component="label" sx={{ p: 0 }}>
                   <Avatar
                     src={logoPreview}
@@ -194,7 +196,7 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
                 </IconButton>
               </Tooltip>
               <Typography variant="caption" sx={{ display: 'block', color: '#888' }}>
-                Upload Store Logo (Max 5MB)
+                {t('uploadLogo')}
               </Typography>
             </Grid>
             {error && (
@@ -207,11 +209,11 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
                 required
                 fullWidth
                 id="name"
-                label="Store Name"
+                label={t('storeName')}
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                helperText="This will be used to create your store's URL"
+                helperText={t('storeNameHelper')}
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     bgcolor: '#fafafa',
@@ -224,13 +226,13 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
                 required
                 fullWidth
                 name="description"
-                label="Store Description"
+                label={t('storeDescription')}
                 id="description"
                 multiline
                 rows={4}
                 value={formData.description}
                 onChange={handleInputChange}
-                helperText="Tell customers about your store"
+                helperText={t('storeDescriptionHelper')}
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     bgcolor: '#fafafa',
@@ -244,7 +246,7 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
               onClick={onClose}
               sx={{ color: '#222', borderColor: '#eee' }}
             >
-              Cancel
+              {t('cancelBtn')}
             </Button>
             <Button
               type="submit"
@@ -266,7 +268,7 @@ const CreateStore = ({ open = true, onClose, onStoreCreated }) => {
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
               ) : (
-                'Create Store'
+                t('createStoreBtn')
               )}
             </Button>
           </DialogActions>

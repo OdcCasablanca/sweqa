@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { WishlistProvider } from './contexts/WishlistContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import NavBar from './components/NavBar';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
@@ -89,51 +90,53 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AuthProvider>
-        <CartProvider>
-          <WishlistProvider>
-            <div className="App">
-              {showNavbar()}
-              <main className={isAuthRoute ? '' : 'main-content'}>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route
-                    path="/dashboard"
-                    element={
-                      <PrivateRoute>
-                        <Dashboard onCreateStore={() => setOpenCreateStore(true)} />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    path="/create-store"
-                    element={<CreateStore open={true} onClose={() => window.history.back()} />}
-                  />
-                  <Route
-                    path="/store-admin/:storeId/*"
-                    element={
-                      <PrivateRoute>
-                        <StoreAdmin />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route path="/store/:storeSlug/product/:productId" element={<ProductDetails />} />
-                  <Route path="/store/:storeSlug/checkout" element={<CheckoutPage />} />
-                  <Route path="/store/:storeSlug/*" element={<StoreFront />} />
-                  <Route path="/store/:storeSlug/cart" element={<Cart />} />
-                  <Route path="/wishlist" element={<Wishlist />} />
-                  <Route path="/products" element={<div>Products Page</div>} />
-                  <Route path="/about" element={<div>About Page</div>} />
-                  <Route path="/checkout" element={<CheckoutPage />} />
-                </Routes>
-                <CreateStore open={openCreateStore} onClose={() => setOpenCreateStore(false)} />
-              </main>
-            </div>
-          </WishlistProvider>
-        </CartProvider>
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <CartProvider>
+            <WishlistProvider>
+              <div className="App">
+                {showNavbar()}
+                <main className={isAuthRoute ? '' : 'main-content'}>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route
+                      path="/dashboard"
+                      element={
+                        <PrivateRoute>
+                          <Dashboard onCreateStore={() => setOpenCreateStore(true)} />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/create-store"
+                      element={<CreateStore open={true} onClose={() => window.history.back()} />}
+                    />
+                    <Route
+                      path="/store-admin/:storeId/*"
+                      element={
+                        <PrivateRoute>
+                          <StoreAdmin />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route path="/store/:storeSlug/product/:productId" element={<ProductDetails />} />
+                    <Route path="/store/:storeSlug/checkout" element={<CheckoutPage />} />
+                    <Route path="/store/:storeSlug/*" element={<StoreFront />} />
+                    <Route path="/store/:storeSlug/cart" element={<Cart />} />
+                    <Route path="/wishlist" element={<Wishlist />} />
+                    <Route path="/products" element={<div>Products Page</div>} />
+                    <Route path="/about" element={<div>About Page</div>} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                  </Routes>
+                  <CreateStore open={openCreateStore} onClose={() => setOpenCreateStore(false)} />
+                </main>
+              </div>
+            </WishlistProvider>
+          </CartProvider>
+        </AuthProvider>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

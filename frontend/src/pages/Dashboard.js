@@ -39,6 +39,7 @@ import { useAuth } from '../contexts/AuthContext';
 import axiosInstance from '../utils/axios';
 import CreateStore from './CreateStore';
 import { LineChart, Line, ResponsiveContainer, BarChart, Bar, XAxis } from 'recharts';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const cardColors = {
   blue: '#4FC3F7',
@@ -49,11 +50,11 @@ const cardColors = {
 
 function StatCard({ icon, color, label, value, chartType, data }) {
   return (
-    <Paper sx={{ borderRadius: 3, p: 2, boxShadow: 2, minWidth: 220 }}>
+    <Paper sx={{ borderRadius: 4, p: 2, boxShadow: '0 6px 24px rgba(255,107,0,0.10), 0 2px 8px rgba(0,0,0,0.06)', minWidth: 220, background: 'linear-gradient(135deg, #fff7f0 60%, #fff3e0 100%)', border: '1.5px solid #ffe0b2' }}>
       <Box display="flex" alignItems="center" gap={2}>
-        <Avatar sx={{ bgcolor: color, width: 40, height: 40 }}>{icon}</Avatar>
+        <Avatar sx={{ bgcolor: color, width: 44, height: 44, boxShadow: '0 2px 8px rgba(255,107,0,0.18)' }}>{icon}</Avatar>
         <Box>
-          <Typography variant="subtitle2" color="text.secondary">{label}</Typography>
+          <Typography variant="subtitle2" color="#FF6B00" fontWeight={600}>{label}</Typography>
           <Typography variant="h5" fontWeight={700} color={color}>{value}</Typography>
         </Box>
       </Box>
@@ -85,6 +86,7 @@ const barData = [
 
 const Dashboard = ({ onCreateStore }) => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [stores, setStores] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
@@ -199,57 +201,56 @@ const Dashboard = ({ onCreateStore }) => {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            bgcolor: '#FFFFFF',
-            borderRadius: 2,
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-            transition: 'transform 0.2s',
+            bgcolor: 'linear-gradient(135deg, #fff7f0 60%, #fff3e0 100%)',
+            borderRadius: 4,
+            boxShadow: '0 8px 32px rgba(255,107,0,0.13), 0 2px 8px rgba(0,0,0,0.07)',
+            border: '1.5px solid #ffe0b2',
+            position: 'relative',
+            overflow: 'visible',
+            transition: 'transform 0.2s, box-shadow 0.2s',
             '&:hover': {
-              transform: 'translateY(-4px)',
-              boxShadow: '0 6px 12px rgba(0,0,0,0.15)',
+              transform: 'translateY(-6px) scale(1.03)',
+              boxShadow: '0 16px 40px rgba(255,107,0,0.18), 0 4px 16px rgba(0,0,0,0.12)',
             }
           }}
         >
-          <CardContent sx={{ flexGrow: 1, p: 3 }}>
+          {/* Orange accent bar */}
+          <Box sx={{ height: 6, width: '100%', background: 'linear-gradient(90deg, #FF6B00, #FF9800)', borderTopLeftRadius: 16, borderTopRightRadius: 16, position: 'absolute', top: 0, left: 0 }} />
+          <CardContent sx={{ flexGrow: 1, p: 3, pt: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
               <Avatar 
                 src={store.logo} 
                 sx={{ 
-                  width: 56, 
-                  height: 56, 
+                  width: 64, 
+                  height: 64, 
                   bgcolor: '#FF6B00',
-                  mr: 2 
+                  mr: 2,
+                  border: '3px solid #fff3e0',
+                  boxShadow: '0 4px 16px rgba(255,107,0,0.18)'
                 }}
               >
                 <StoreIcon />
               </Avatar>
               <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h6" component="h2" gutterBottom>
+                <Typography variant="h6" component="h2" gutterBottom sx={{ color: '#FF6B00', fontWeight: 700 }}>
                   {store.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', color: '#a67c52' }}>
                   {store.description}
                 </Typography>
               </Box>
-              <IconButton
-                onClick={() => setEditDialogOpen(true)}
-                sx={{
-                  color: '#FF6B00',
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 107, 0, 0.1)',
-                  },
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                onClick={() => setDeleteDialogOpen(true)}
-                sx={{
-                  color: '#FF6B00',
-                  '&:hover': { bgcolor: 'rgba(255, 107, 0, 0.1)' },
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
+              <Box sx={{ display: 'flex', gap: 1 }}>
+                <Tooltip title="Modifier">
+                  <IconButton onClick={() => setEditDialogOpen(true)} sx={{ color: '#FF6B00', bgcolor: 'rgba(255,107,0,0.08)', '&:hover': { bgcolor: '#FF9800', color: '#fff' } }}>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Supprimer">
+                  <IconButton onClick={() => setDeleteDialogOpen(true)} sx={{ color: '#FF6B00', bgcolor: 'rgba(255,107,0,0.08)', '&:hover': { bgcolor: '#FF9800', color: '#fff' } }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </Box>
             </Box>
 
             <Grid container spacing={2} sx={{ mb: 2 }}>
@@ -258,11 +259,16 @@ const Dashboard = ({ onCreateStore }) => {
                   sx={{ 
                     p: 1.5, 
                     textAlign: 'center',
-                    bgcolor: '#FFF3E0'
+                    bgcolor: '#FFF3E0',
+                    borderRadius: 2,
+                    boxShadow: '0 2px 8px rgba(255,107,0,0.10)',
+                    border: '1px solid #ffe0b2',
+                    color: '#FF6B00',
+                    fontWeight: 700
                   }}
                 >
-                  <Typography variant="h6" sx={{ color: '#FF6B00' }}>{storeOrders.length}</Typography>
-                  <Typography variant="body2">Commandes</Typography>
+                  <Typography variant="h6" sx={{ color: '#FF6B00', fontWeight: 700 }}>{storeOrders.length}</Typography>
+                  <Typography variant="body2" sx={{ color: '#FF6B00', fontWeight: 600 }}>{t('orders')}</Typography>
                 </Paper>
               </Grid>
               <Grid item xs={6}>
@@ -270,45 +276,47 @@ const Dashboard = ({ onCreateStore }) => {
                   sx={{ 
                     p: 1.5, 
                     textAlign: 'center',
-                    bgcolor: '#FFF3E0'
+                    bgcolor: '#FFF3E0',
+                    borderRadius: 2,
+                    boxShadow: '0 2px 8px rgba(255,107,0,0.10)',
+                    border: '1px solid #ffe0b2',
+                    color: '#FF6B00',
+                    fontWeight: 700
                   }}
                 >
-                  <Typography variant="h6" sx={{ color: '#FF6B00' }}>{storeProducts.length}</Typography>
-                  <Typography variant="body2">Produits</Typography>
+                  <Typography variant="h6" sx={{ color: '#FF6B00', fontWeight: 700 }}>{storeProducts.length}</Typography>
+                  <Typography variant="body2" sx={{ color: '#FF6B00', fontWeight: 600 }}>{t('products')}</Typography>
                 </Paper>
               </Grid>
             </Grid>
 
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              URL: {window.location.origin}/store/{store.slug}
+              <span style={{ color: '#FF6B00', fontWeight: 600 }}>URL:</span> {window.location.origin}/store/{store.slug}
             </Typography>
           </CardContent>
 
-          <Divider />
-
-          <CardActions sx={{ p: 2, justifyContent: 'space-between' }}>
-            <Box>
-              <Tooltip title="Gérer la boutique">
-                <IconButton 
-                  component={RouterLink} 
-                  to={`/store-admin/${store._id}`}
-                  sx={{ color: '#FF6B00' }}
-                >
-                  <SettingsIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Voir la boutique">
-                <IconButton 
-                  component={RouterLink} 
-                  to={`/store/${store.slug}`}
-                  target="_blank"
-                  sx={{ color: '#FF6B00' }}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </CardActions>
+          {/* Card Footer with actions */}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', bgcolor: 'linear-gradient(90deg, #fff3e0 60%, #ffe0b2 100%)', borderBottomLeftRadius: 16, borderBottomRightRadius: 16, p: 2, pt: 1.5, borderTop: '1px solid #ffe0b2', boxShadow: '0 -2px 8px rgba(255,107,0,0.07)' }}>
+            <Tooltip title="Gérer la boutique">
+              <IconButton 
+                component={RouterLink} 
+                to={`/store-admin/${store._id}`}
+                sx={{ color: '#FF6B00', bgcolor: 'rgba(255,107,0,0.08)', '&:hover': { bgcolor: '#FF9800', color: '#fff' } }}
+              >
+                <SettingsIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Voir la boutique">
+              <IconButton 
+                component={RouterLink} 
+                to={`/store/${store.slug}`}
+                target="_blank"
+                sx={{ color: '#FF6B00', bgcolor: 'rgba(255,107,0,0.08)', '&:hover': { bgcolor: '#FF9800', color: '#fff' } }}
+              >
+                <VisibilityIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Card>
 
         <Dialog
@@ -511,7 +519,7 @@ const Dashboard = ({ onCreateStore }) => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 6, mb: 4, pt: 1.5 }}>
+    <Container maxWidth="lg" sx={{ mt: 6, mb: 8, pt: 1.5, pb: 6 }}>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 3 }}>
        
       </Box>
@@ -539,10 +547,10 @@ const Dashboard = ({ onCreateStore }) => {
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={12} md={8}>
             <Typography variant="h4" gutterBottom>
-              Bonjour, {user?.name || 'Entrepreneur'}
+              {t('dashboardGreeting').replace('{name}', user?.name || 'Entrepreneur')}
             </Typography>
             <Typography variant="body1">
-              Gérez vos boutiques en ligne et suivez vos performances en temps réel.
+              {t('dashboardSubtext')}
             </Typography>
           </Grid>
           <Grid item xs={12} md={4} sx={{ textAlign: 'right' }}>
@@ -558,7 +566,7 @@ const Dashboard = ({ onCreateStore }) => {
                 },
               }}
             >
-              CRÉER UNE BOUTIQUE
+              {t('createStore')}
             </Button>
           </Grid>
         </Grid>
@@ -567,23 +575,24 @@ const Dashboard = ({ onCreateStore }) => {
       {/* Quick Stats */}
       <Grid container spacing={3} mb={2}>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<CartIcon />} color={cardColors.blue} label="Orders" value={orders.length} chartType="line" data={lineData} />
+          <StatCard icon={<CartIcon />} color={cardColors.blue} label={t('orders')} value={orders.length} chartType="line" data={lineData} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<StoreIcon />} color={cardColors.green} label="Products" value={products.length} chartType="line" data={lineData} />
+          <StatCard icon={<StoreIcon />} color={cardColors.green} label={t('products')} value={products.length} chartType="line" data={lineData} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<CategoryIcon />} color={cardColors.purple} label="Categories" value={stores.reduce((sum, s) => sum + (s.categoriesCount || 0), 0)} chartType="line" data={lineData} />
+          <StatCard icon={<CategoryIcon />} color={cardColors.purple} label={t('categories')} value={stores.reduce((sum, s) => sum + (s.categoriesCount || 0), 0)} chartType="line" data={lineData} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<PeopleIcon />} color={cardColors.orange} label="Customers" value={[...new Set(orders.map(o => o.customerEmail).filter(Boolean))].length} chartType="bar" data={barData} />
+          <StatCard icon={<PeopleIcon />} color={cardColors.orange} label={t('customers')} value={[...new Set(orders.map(o => o.customerEmail).filter(Boolean))].length} chartType="bar" data={barData} />
         </Grid>
       </Grid>
 
       {/* Stores Grid */}
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h5" gutterBottom>
-          Mes Boutiques
+        <Typography variant="h5" gutterBottom sx={{ color: '#FF6B00', fontWeight: 700, display: 'inline-block', position: 'relative' }}>
+          {t('myStores')}
+          <span style={{ display: 'block', height: 4, width: 48, background: 'linear-gradient(90deg, #FF6B00, #FF9800)', borderRadius: 2, marginTop: 4, marginLeft: 2 }}></span>
         </Typography>
       </Box>
 
@@ -605,10 +614,10 @@ const Dashboard = ({ onCreateStore }) => {
             >
               <StoreIcon sx={{ fontSize: 60, color: '#FF6B00', mb: 2 }} />
               <Typography variant="h6" gutterBottom>
-                Vous n'avez pas encore de boutique
+                {t('noStores')}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                Créez votre première boutique en ligne en quelques minutes
+                {t('createFirstStore')}
               </Typography>
               <Button
                 variant="contained"
@@ -619,7 +628,7 @@ const Dashboard = ({ onCreateStore }) => {
                   '&:hover': { bgcolor: '#FF8533' },
                 }}
               >
-                Créer une boutique
+                {t('createStore')}
               </Button>
             </Paper>
           </Grid>

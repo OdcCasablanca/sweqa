@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link as RouterLink, Routes, Route, useNavigate } from 'react-router-dom';
+import { useParams, Link as RouterLink, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import {
   Container,
   Grid,
@@ -75,6 +75,7 @@ import PageManagement from '../components/PageManagement';
 import BannerManagement from '../components/BannerManagement';
 import ProductGrid from '../components/ProductGrid';
 import OrdersList from './OrdersList';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const DRAWER_WIDTH = 280;
 
@@ -113,11 +114,11 @@ const cardColors = {
 
 function StatCard({ icon, color, label, value, chartType, data }) {
   return (
-    <Paper sx={{ borderRadius: 3, p: 2, boxShadow: 2, minWidth: 220 }}>
+    <Paper sx={{ borderRadius: 4, p: 2, boxShadow: '0 6px 24px rgba(255,107,0,0.10), 0 2px 8px rgba(0,0,0,0.06)', minWidth: 220, background: 'linear-gradient(135deg, #fff7f0 60%, #fff3e0 100%)', border: '1.5px solid #ffe0b2' }}>
       <Box display="flex" alignItems="center" gap={2}>
-        <Avatar sx={{ bgcolor: color, width: 40, height: 40 }}>{icon}</Avatar>
+        <Avatar sx={{ bgcolor: color, width: 44, height: 44, boxShadow: '0 2px 8px rgba(255,107,0,0.18)' }}>{icon}</Avatar>
         <Box>
-          <Typography variant="subtitle2" color="text.secondary">{label}</Typography>
+          <Typography variant="subtitle2" color="#FF6B00" fontWeight={600}>{label}</Typography>
           <Typography variant="h5" fontWeight={700} color={color}>{value}</Typography>
         </Box>
       </Box>
@@ -150,32 +151,36 @@ const ComingSoon = ({ title }) => (
 );
 
 const DashboardComponent = ({ store, products, storeId }) => {
+  const { t } = useLanguage();
   return (
     <Grid container spacing={3} sx={{ ml: 0 }}> {/* Ensure no left margin on parent Grid */}
       {/* Statistics Cards */}
       <Grid container spacing={3} mb={2} sx={{ ml: 0 }}> {/* Ensure no left margin on cards row */}
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<CartIcon />} color={cardColors.blue} label="Orders" value={orderData.reduce((sum, d) => sum + d.orders, 0)} chartType="line" data={orderData} />
+          <StatCard icon={<CartIcon />} color={cardColors.blue} label={t('orders')} value={orderData.reduce((sum, d) => sum + d.orders, 0)} chartType="line" data={orderData} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<StoreIcon />} color={cardColors.green} label="Products" value={products.length} chartType="line" data={orderData} />
+          <StatCard icon={<StoreIcon />} color={cardColors.green} label={t('products')} value={products.length} chartType="line" data={orderData} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<CategoryIcon />} color={cardColors.purple} label="Categories" value={new Set(products.map(p => p.category?._id).filter(Boolean)).size} chartType="line" data={orderData} />
+          <StatCard icon={<CategoryIcon />} color={cardColors.purple} label={t('categories')} value={new Set(products.map(p => p.category?._id).filter(Boolean)).size} chartType="line" data={orderData} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard icon={<People />} color={cardColors.orange} label="Customers" value={[...new Set((store?.orders || []).map(o => o.customerEmail).filter(Boolean))].length} chartType="bar" data={productsByCategory} />
+          <StatCard icon={<People />} color={cardColors.orange} label={t('customers')} value={[...new Set((store?.orders || []).map(o => o.customerEmail).filter(Boolean))].length} chartType="bar" data={productsByCategory} />
         </Grid>
       </Grid>
 
       {/* New Store Overview with Graphs */}
       <Grid item xs={12}>
-        <Paper sx={{ p: 3, bgcolor: '#fff', color: '#1a1a1a', borderRadius: 3, boxShadow: 2, ml: 0 }}> {/* Ensure no left margin on overview */}
-          <Typography variant="h6" sx={{ color: '#FF6B00', mb: 3 }}>Store Overview</Typography>
+        <Paper sx={{ p: 3, bgcolor: 'linear-gradient(135deg, #fff7f0 60%, #fff3e0 100%)', color: '#1a1a1a', borderRadius: 4, boxShadow: '0 8px 32px rgba(255,107,0,0.13), 0 2px 8px rgba(0,0,0,0.07)', border: '1.5px solid #ffe0b2', ml: 0 }}>
+          <Typography variant="h6" sx={{ color: '#FF6B00', mb: 3, fontWeight: 700, display: 'inline-block', position: 'relative' }}>
+            {t('storeOverview')}
+            <span style={{ display: 'block', height: 4, width: 48, background: 'linear-gradient(90deg, #FF6B00, #FF9800)', borderRadius: 2, marginTop: 4, marginLeft: 2 }}></span>
+          </Typography>
           <Grid container spacing={3}>
             {/* Orders and Revenue Chart */}
             <Grid item xs={12} md={8}>
-              <Typography variant="subtitle1" sx={{ mb: 2, color: '#1a1a1a' }}>Orders & Revenue</Typography>
+              <Typography variant="subtitle1" sx={{ mb: 2, color: '#1a1a1a' }}>{t('ordersRevenue')}</Typography>
               <Box sx={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                   <LineChart data={orderData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -184,21 +189,21 @@ const DashboardComponent = ({ store, products, storeId }) => {
                     <YAxis yAxisId="left" />
                     <YAxis yAxisId="right" orientation="right" />
                     <RechartsTooltip />
-                    <Legend />
+                    <Legend formatter={(value) => value === 'orders' ? t('orders') : value === 'revenue' ? t('revenue') : value} />
                     <Line
                       yAxisId="left"
                       type="monotone"
                       dataKey="orders"
                       stroke="#FF6B00"
                       activeDot={{ r: 8 }}
-                      name="Orders"
+                      name={t('orders')}
                     />
                     <Line
                       yAxisId="right"
                       type="monotone"
                       dataKey="revenue"
                       stroke="#FFB27D"
-                      name="Revenue ($)"
+                      name={t('revenue')}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -207,7 +212,7 @@ const DashboardComponent = ({ store, products, storeId }) => {
 
             {/* Customer Distribution Pie Chart */}
             <Grid item xs={12} md={4}>
-              <Typography variant="subtitle1" sx={{ mb: 2, color: '#1a1a1a' }}>Customer Distribution</Typography>
+              <Typography variant="subtitle1" sx={{ mb: 2, color: '#1a1a1a' }}>{t('customerDistribution')}</Typography>
               <Box sx={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                   <PieChart>
@@ -220,14 +225,14 @@ const DashboardComponent = ({ store, products, storeId }) => {
                       fill="#8884d8"
                       paddingAngle={5}
                       dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      label={({ name, percent }) => `${t(name.toLowerCase())} ${(percent * 100).toFixed(0)}%`}
                     >
                       {customerData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
-                    <RechartsTooltip />
-                    <Legend />
+                    <RechartsTooltip formatter={(value, name) => [`${value}`, t(name.toLowerCase())]} />
+                    <Legend formatter={(value) => t(value.toLowerCase())} />
                   </PieChart>
                 </ResponsiveContainer>
               </Box>
@@ -557,6 +562,8 @@ const StoreAdmin = () => {
   const [store, setStore] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t, currentLanguage } = useLanguage();
+  const isRTL = currentLanguage === 'ar';
 
   useEffect(() => {
     fetchStoreData();
@@ -580,171 +587,190 @@ const StoreAdmin = () => {
     }
   };
 
-  const Sidebar = () => (
-    <Box
-      sx={{
-        width: DRAWER_WIDTH,
-        height: 'calc(100vh - 64px)',
-        bgcolor: '#FFFFFF',
-        position: 'fixed',
-        left: 0,
-        top: 64,
-        display: 'flex',
-        flexDirection: 'column',
-        zIndex: 1100,
-        border: '2px solid #e0e0e0',
-        borderBottom: '2.5px solid #e0e0e0',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
-      }}
-    >
-      {/* Store Info Section */}
+  const Sidebar = () => {
+    const location = useLocation();
+    return (
       <Box
         sx={{
-          width: '100%',
-          bgcolor: '#FFFFFF',
-          p: 3,
-          borderBottom: '1px solid #e0e0e0',
+          width: DRAWER_WIDTH,
+          height: 'calc(100vh - 64px)',
+          bgcolor: 'linear-gradient(135deg, #fff7f0 60%, #fff3e0 100%)',
+          position: 'fixed',
+          top: 64,
+          left: isRTL ? 'auto' : 0,
+          right: isRTL ? 0 : 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 1100,
+          border: '2px solid #ffe0b2',
+          borderBottom: '2.5px solid #ffe0b2',
+          boxShadow: '0 8px 32px rgba(255,107,0,0.13), 0 2px 8px rgba(0,0,0,0.07)',
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <Avatar
-            src={store?.logo}
-            sx={{
-              width: 50,
-              height: 50,
-              bgcolor: '#FF6B00',
-              mr: 2,
-            }}
-          >
-            <StoreIcon />
-          </Avatar>
-          <Box>
-            <Typography variant="h6" sx={{ color: '#1a1a1a', whiteSpace: 'nowrap' }}>
-              {store?.name || 'Loading...'}
-            </Typography>
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#666666',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {store?.description}
-            </Typography>
-          </Box>
-        </Box>
-
-        <Button
-          component={RouterLink}
-          to={`/store/${store?.slug}`}
-          target="_blank"
-          variant="outlined"
-          fullWidth
-          startIcon={<VisibilityIcon />}
+        {/* Store Info Section */}
+        <Box
           sx={{
-            color: '#FF6B00',
-            borderColor: '#FF6B00',
-            '&:hover': {
-              borderColor: '#FF8533',
-              bgcolor: 'rgba(255, 107, 0, 0.1)',
-            },
+            width: '100%',
+            bgcolor: 'transparent',
+            p: 3,
+            borderBottom: '1.5px solid #ffe0b2',
           }}
         >
-          Voir la boutique
-        </Button>
-      </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+            <Avatar
+              src={store?.logo}
+              sx={{
+                width: 60,
+                height: 60,
+                bgcolor: '#FF6B00',
+                mr: 2,
+                border: '3px solid #fff3e0',
+                boxShadow: '0 4px 16px rgba(255,107,0,0.18)'
+              }}
+            >
+              <StoreIcon />
+            </Avatar>
+            <Box>
+              <Typography variant="h6" sx={{ color: '#FF6B00', whiteSpace: 'nowrap', fontWeight: 700 }}>
+                {store?.name || 'Loading...'}
+              </Typography>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  color: '#a67c52',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  fontStyle: 'italic',
+                }}
+              >
+                {store?.description}
+              </Typography>
+            </Box>
+          </Box>
 
-      {/* Navigation Section */}
-      <Box
-        sx={{
-          flex: 1,
-          overflowY: 'auto',
-          '&::-webkit-scrollbar': { width: '6px' },
-          '&::-webkit-scrollbar-track': { background: '#f5f5f5' },
-          '&::-webkit-scrollbar-thumb': {
-            background: '#ddd',
-            borderRadius: '3px',
-            '&:hover': { background: '#ccc' },
-          },
-        }}
-      >
-        <Box sx={{ p: 2 }}>
-          {/* Add My Stores button at the top */}
           <Button
             component={RouterLink}
-            to="/dashboard"
+            to={`/store/${store?.slug}`}
+            target="_blank"
+            variant="outlined"
             fullWidth
+            startIcon={<VisibilityIcon />}
             sx={{
-              justifyContent: 'flex-start',
               color: '#FF6B00',
-              py: 1.5,
-              px: 2,
-              mb: 2,
-              border: '1px solid #FF6B00',
+              borderColor: '#FF6B00',
+              fontWeight: 600,
+              borderRadius: 2,
+              boxShadow: '0 2px 8px rgba(255,107,0,0.10)',
+              bgcolor: '#fff',
               '&:hover': {
-                bgcolor: 'rgba(255, 107, 0, 0.1)',
                 borderColor: '#FF8533',
+                bgcolor: 'rgba(255, 107, 0, 0.1)',
               },
             }}
           >
-            ← Retour à mes boutiques
+            {t('viewStore')}
           </Button>
+        </Box>
 
-          <Typography variant="overline" sx={{ color: '#666666', px: 2, display: 'block' }}>
-            GESTION
-          </Typography>
-          <Box sx={{ mt: 1 }}>
-            {[
-              { icon: <CartIcon />, label: 'Dashboard', path: '' },
-              { icon: <CartIcon />, label: 'ORDERS', path: '/orders' },
-              { icon: <CartIcon />, label: 'Produits', path: '/products' },
-              { icon: <CategoryIcon />, label: 'Catégories', path: '/categories' },
-              { icon: <SettingsIcon />, label: 'Paramètres', path: '/settings' },
-            ].map((item) => (
-              <Button
-                key={item.label}
-                component={RouterLink}
-                to={`/store-admin/${storeId}${item.path}`}
-                startIcon={item.icon}
-                fullWidth
-                sx={{
-                  justifyContent: 'flex-start',
-                  color: '#666666',
-                  py: 1.5,
-                  px: 2,
-                  border: '1px solid #f0f0f0',
-                  borderRadius: '10px',
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-                  mb: 1.2,
-                  background: '#fff',
-                  transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
-                  fontWeight: 500,
-                  '&:hover': {
-                    bgcolor: '#FFF3E0',
-                    color: '#FF6B00',
-                    boxShadow: '0 4px 16px rgba(255,107,0,0.10)',
-                    borderColor: '#FFB27D',
-                    transform: 'translateY(-2px) scale(1.03)',
-                  },
-                  '&.Mui-selected, &.active': {
-                    bgcolor: '#FF6B00',
-                    color: '#fff',
-                    borderColor: '#FF6B00',
-                    boxShadow: '0 2px 8px rgba(255,107,0,0.15)',
-                    transform: 'scale(1.04)',
-                  },
-                }}
-              >
-                {item.label}
-              </Button>
-            ))}
+        {/* Navigation Section */}
+        <Box
+          sx={{
+            flex: 1,
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': { width: '6px' },
+            '&::-webkit-scrollbar-track': { background: '#f5f5f5' },
+            '&::-webkit-scrollbar-thumb': {
+              background: '#ffd699',
+              borderRadius: '3px',
+              '&:hover': { background: '#FFB27D' },
+            },
+          }}
+        >
+          <Box sx={{ p: 2 }}>
+            {/* Add My Stores button at the top */}
+            <Button
+              component={RouterLink}
+              to="/dashboard"
+              fullWidth
+              sx={{
+                justifyContent: 'flex-start',
+                color: '#FF6B00',
+                py: 1.5,
+                px: 2,
+                mb: 2,
+                border: '1.5px solid #FF6B00',
+                borderRadius: 2,
+                fontWeight: 600,
+                background: 'linear-gradient(90deg, #fff3e0 60%, #ffe0b2 100%)',
+                boxShadow: '0 2px 8px rgba(255,107,0,0.10)',
+                '&:hover': {
+                  bgcolor: 'rgba(255, 107, 0, 0.1)',
+                  borderColor: '#FF8533',
+                },
+              }}
+            >
+              {t('backToStores')}
+            </Button>
+
+            <Typography variant="overline" sx={{ color: '#a67c52', px: 2, display: 'block', fontWeight: 700 }}>
+              {t('manage')}
+            </Typography>
+            <Box sx={{ mt: 1 }}>
+              {[
+                { icon: <CartIcon />, label: t('dashboard'), path: '' },
+                { icon: <CartIcon />, label: t('orders'), path: '/orders' },
+                { icon: <CartIcon />, label: t('products'), path: '/products' },
+                { icon: <CategoryIcon />, label: t('categories'), path: '/categories' },
+                { icon: <SettingsIcon />, label: t('settings'), path: '/settings' },
+              ].map((item) => {
+                const isActive = location.pathname === `/store-admin/${storeId}${item.path}`;
+                return (
+                  <Button
+                    key={item.label}
+                    component={RouterLink}
+                    to={`/store-admin/${storeId}${item.path}`}
+                    startIcon={item.icon}
+                    fullWidth
+                    sx={{
+                      justifyContent: 'flex-start',
+                      color: '#666666',
+                      py: 1.5,
+                      px: 2,
+                      border: '1.5px solid #ffe0b2',
+                      borderRadius: '10px',
+                      boxShadow: '0 1px 4px rgba(255,107,0,0.04)',
+                      mb: 1.2,
+                      background: '#fff',
+                      transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
+                      fontWeight: 600,
+                      '&:hover': {
+                        bgcolor: '#FFF3E0',
+                        color: '#FF6B00',
+                        boxShadow: '0 4px 16px rgba(255,107,0,0.10)',
+                        borderColor: '#FFB27D',
+                        transform: 'translateY(-2px) scale(1.03)',
+                      },
+                      ...(isActive && {
+                        bgcolor: '#FF6B00',
+                        color: '#fff',
+                        borderColor: '#FF6B00',
+                        fontWeight: 700,
+                        boxShadow: '0 2px 8px rgba(255,107,0,0.15)',
+                        transform: 'scale(1.04)',
+                      }),
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                );
+              })}
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
-  );
+    );
+  };
 
   if (!store) {
     return (
@@ -799,7 +825,8 @@ const StoreAdmin = () => {
           component="main"
           sx={{
             flexGrow: 1,
-            ml: `${DRAWER_WIDTH}px`,
+            ml: isRTL ? 0 : `${DRAWER_WIDTH}px`,
+            mr: isRTL ? `${DRAWER_WIDTH}px` : 0,
             mt: '46px',
             p: 3,
             position: 'relative',

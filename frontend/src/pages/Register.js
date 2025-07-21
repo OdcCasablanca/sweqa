@@ -12,6 +12,7 @@ import {
   Grid,
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { PersonAddOutlined as PersonAddIcon } from '@mui/icons-material';
 import NavBar from '../components/NavBar';
 
@@ -24,12 +25,13 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { t } = useLanguage();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return setError('Les mots de passe ne correspondent pas');
+      return setError(t('passwordMismatch'));
     }
 
     try {
@@ -38,7 +40,7 @@ const Register = () => {
       await register(name, email, password);
       navigate('/dashboard', { replace: true });
     } catch (error) {
-      setError(error.response?.data?.message || 'Échec de la création du compte');
+      setError(error.response?.data?.message || t('registrationError'));
     } finally {
       setLoading(false);
     }
@@ -87,10 +89,10 @@ const Register = () => {
             >
               <PersonAddIcon sx={{ fontSize: 80, mb: 3 }} />
               <Typography variant="h4" component="h1" gutterBottom>
-                Rejoignez-nous
+                {t('joinUs')}
               </Typography>
               <Typography variant="body1" align="center" sx={{ maxWidth: 400 }}>
-                Créez votre compte pour commencer à vendre en ligne et développer votre entreprise.
+                {t('registerDescription')}
               </Typography>
             </Box>
 
@@ -106,7 +108,7 @@ const Register = () => {
               }}
             >
               <Typography component="h1" variant="h5" sx={{ color: '#FF6B00', mb: 3, textAlign: 'center' }}>
-                Inscription
+                {t('registerTitle')}
               </Typography>
 
               {error && (
@@ -121,7 +123,7 @@ const Register = () => {
                   required
                   fullWidth
                   id="name"
-                  label="Nom complet"
+                  label={t('fullName')}
                   name="name"
                   autoComplete="name"
                   autoFocus
@@ -133,7 +135,7 @@ const Register = () => {
                   required
                   fullWidth
                   id="email"
-                  label="Adresse e-mail"
+                  label={t('emailAddress')}
                   name="email"
                   autoComplete="email"
                   value={email}
@@ -144,7 +146,7 @@ const Register = () => {
                   required
                   fullWidth
                   name="password"
-                  label="Mot de passe"
+                  label={t('password')}
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -156,7 +158,7 @@ const Register = () => {
                   required
                   fullWidth
                   name="confirmPassword"
-                  label="Confirmer le mot de passe"
+                  label={t('confirmPassword')}
                   type="password"
                   id="confirmPassword"
                   value={confirmPassword}
@@ -174,7 +176,7 @@ const Register = () => {
                   }}
                   disabled={loading}
                 >
-                  {loading ? 'Inscription en cours...' : 'S\'inscrire'}
+                  {loading ? t('registering') : t('registerButton')}
                 </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
@@ -184,7 +186,7 @@ const Register = () => {
                       variant="body2"
                       sx={{ color: '#FF6B00' }}
                     >
-                      Déjà un compte ? Connectez-vous
+                      {t('hasAccount')}
                     </Link>
                   </Grid>
                 </Grid>

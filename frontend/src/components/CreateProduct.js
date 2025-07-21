@@ -20,7 +20,7 @@ import {
     CircularProgress
 } from '@mui/material';
 import { PhotoCamera, Clear, CloudUpload, ShoppingCart, Check } from '@mui/icons-material';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const CreateProduct = ({ onProductCreated }) => {
@@ -95,7 +95,7 @@ const CreateProduct = ({ onProductCreated }) => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get(`http://localhost:5005/api/categories/store/${storeId}`);
+            const response = await axiosInstance.get(`/categories/store/${storeId}`);
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -155,7 +155,7 @@ const CreateProduct = ({ onProductCreated }) => {
             if (files[0] && images.length === 0) {
                 const base64Image = await convertFileToBase64(files[0]);
                 const token = localStorage.getItem('token');
-                const response = await axios.post('http://localhost:5005/api/products/analyze-image', {
+                const response = await axiosInstance.post('/products/analyze-image', {
                     image: base64Image
                 }, {
                     headers: {
@@ -413,7 +413,7 @@ const CreateProduct = ({ onProductCreated }) => {
             });
 
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:5005/api/products', formDataToSend, {
+            const response = await axiosInstance.post('/products', formDataToSend, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'

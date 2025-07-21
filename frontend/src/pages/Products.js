@@ -6,6 +6,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -14,6 +15,7 @@ export default function Products() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { storeSlug } = useParams();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,12 +59,12 @@ export default function Products() {
       <NavBar />
       <Box sx={{ maxWidth: 1200, mx: 'auto', pt: 0, pb: 2 }}>
         <Typography variant="h4" fontWeight={700} mb={3} textAlign="center">
-          Products
+          {t('productsTitle')}
         </Typography>
         <Paper sx={{ mb: 4, p: 2, maxWidth: 500, mx: 'auto', borderRadius: 3, boxShadow: 1 }}>
           <TextField
             fullWidth
-            placeholder="Search products..."
+            placeholder={t('searchProducts')}
             value={search}
             onChange={e => setSearch(e.target.value)}
             InputProps={{
@@ -86,7 +88,11 @@ export default function Products() {
             <CircularProgress />
           </Box>
         ) : (
-          <ProductGrid products={filteredProducts} onEdit={() => {}} onDelete={() => {}} onView={handleView} />
+          filteredProducts.length === 0 ? (
+            <Typography textAlign="center" color="text.secondary" mt={4}>{t('noProducts')}</Typography>
+          ) : (
+            <ProductGrid products={filteredProducts} onEdit={() => {}} onDelete={() => {}} onView={handleView} />
+          )
         )}
       </Box>
       <Footer />

@@ -12,6 +12,7 @@ import {
   Grid,
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { FaLock } from 'react-icons/fa';
 import NavBar from '../components/NavBar';
 
@@ -21,6 +22,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,7 +33,7 @@ const Login = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError('Email ou mot de passe incorrect');
+      setError(t('loginError'));
     } finally {
       setLoading(false);
     }
@@ -92,10 +94,10 @@ const Login = () => {
                 >
                   <FaLock size={80} style={{ marginBottom: 24 }} />
                   <Typography variant="h4" component="h1" gutterBottom>
-                    Bienvenue
+                    {t('welcome')}
                   </Typography>
                   <Typography variant="body1" align="center" sx={{ maxWidth: 400 }}>
-                    Connectez-vous pour accéder à votre tableau de bord et gérer votre boutique en ligne.
+                    {t('loginDescription')}
                   </Typography>
                 </Box>
               </Grid>
@@ -115,7 +117,7 @@ const Login = () => {
                   }}
                 >
                   <Typography component="h1" variant="h5" sx={{ color: '#FF6B00', mb: 3, textAlign: 'center' }}>
-                    Connexion
+                    {t('loginTitle')}
                   </Typography>
 
                   {error && (
@@ -130,7 +132,7 @@ const Login = () => {
                       required
                       fullWidth
                       id="email"
-                      label="Adresse e-mail"
+                      label={t('emailAddress')}
                       name="email"
                       autoComplete="email"
                       autoFocus
@@ -142,7 +144,7 @@ const Login = () => {
                       required
                       fullWidth
                       name="password"
-                      label="Mot de passe"
+                      label={t('password')}
                       type="password"
                       id="password"
                       autoComplete="current-password"
@@ -161,7 +163,7 @@ const Login = () => {
                       }}
                       disabled={loading}
                     >
-                      {loading ? 'Connexion en cours...' : 'SE CONNECTER'}
+                      {loading ? t('loggingIn') : t('loginButton')}
                     </Button>
                     <Grid container justifyContent="flex-end">
                       <Grid item>
@@ -171,7 +173,7 @@ const Login = () => {
                           variant="body2"
                           sx={{ color: '#FF6B00' }}
                         >
-                          Pas encore de compte ? Inscrivez-vous
+                          {t('noAccount')}
                         </Link>
                       </Grid>
                     </Grid>

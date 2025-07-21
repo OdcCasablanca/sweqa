@@ -16,8 +16,10 @@ import {
   Delete as DeleteIcon,
   Visibility as VisibilityIcon,
 } from '@mui/icons-material';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ProductGrid = ({ products, onEdit, onDelete, onView }) => {
+  const { t } = useLanguage();
   return (
     <Grid container spacing={3}>
       {products.map((product) => (
@@ -72,7 +74,7 @@ const ProductGrid = ({ products, onEdit, onDelete, onView }) => {
 
               <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
                 <Chip
-                  label={product.category?.name || 'Uncategorized'}
+                  label={product.category?.name || t('uncategorized')}
                   size="small"
                   sx={{
                     bgcolor: '#FF6B00',
@@ -80,7 +82,7 @@ const ProductGrid = ({ products, onEdit, onDelete, onView }) => {
                   }}
                 />
                 <Chip
-                  label={`${product.stock} in stock`}
+                  label={`${product.stock} ${t('inStock')}`}
                   size="small"
                   sx={{
                     bgcolor: product.stock > 0 ? '#4CAF50' : '#f44336',
@@ -92,7 +94,7 @@ const ProductGrid = ({ products, onEdit, onDelete, onView }) => {
 
             <CardActions sx={{ p: 2, borderTop: '1px solid #333' }}>
               <Box sx={{ display: 'flex', gap: 1 }}>
-                <Tooltip title="Edit Product">
+                <Tooltip title={t('editProduct')}>
                   <IconButton
                     onClick={e => { e.stopPropagation(); onEdit(product._id); }}
                     sx={{
@@ -103,7 +105,7 @@ const ProductGrid = ({ products, onEdit, onDelete, onView }) => {
                     <EditIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Delete Product">
+                <Tooltip title={t('deleteProduct')}>
                   <IconButton
                     onClick={e => { e.stopPropagation(); onDelete(product._id); }}
                     sx={{
