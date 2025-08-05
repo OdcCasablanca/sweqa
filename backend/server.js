@@ -35,6 +35,11 @@ mongoose.connection.on('disconnected', () => {
     console.log('MongoDB disconnected');
 });
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'OK' });
+});
+
 // Import routes
 const authRoutes = require('./routes/auth');
 const storeRoutes = require('./routes/stores');
